@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  TextInput, 
+  Button
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -17,10 +19,14 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {text: "Test Input"};
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -31,77 +37,69 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
+          <View>
+            <TextInput
+              style={styles.inputText}
+              keyboardType='numeric'
+              onChangeText={(text) => this.setState({input: text})}
+              value={this.state.myNumber}
+              maxLength={10}
+              placeholder="Poll PIN"
+              placeholderTextColor='gray'
+            />
           </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
+          
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.buttonLook}>
+            <Text style={styles.buttonText}> Enter</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#DA3743',
+  },
+  
+ 
+  buttonText:{
+    fontSize:30,
+    fontWeight:'bold',
+    color:'white',
+  },
+  
+  buttonContainer: {
+    flex:1,
+    justifyContent:'center',
+    padding:1,
+  },
+
+  buttonLook: {
+    alignItems: 'center',
+    width:210,
+    height:60,
+    backgroundColor: '#27A2C4',
+    padding: 10,
+    marginLeft:80,
+    marginTop: -240
+  },
+  
+  inputText: {
+    height: 60, 
+    width: 210, 
+    borderColor: 'black', 
+    borderWidth: 1, 
+    backgroundColor:'white', 
+    marginLeft: 80,
+    textAlign: 'center',
+    fontSize: 25,
+    fontWeight:'bold'
   },
   developmentModeText: {
     marginBottom: 20,
@@ -122,7 +120,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 80,
     resizeMode: 'contain',
-    marginTop: 3,
+    marginTop: 200,
     marginLeft: -10,
   },
   getStartedContainer: {
