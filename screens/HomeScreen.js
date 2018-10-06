@@ -31,12 +31,21 @@ export default class HomeScreen extends React.Component {
             <Image
               source={
                 __DEV__
-                  ? require('../assets/images/robot-dev.png')
+                  ? require('../assets/images/hotdog.png')
                   : require('../assets/images/robot-prod.png')
               }
               style={styles.welcomeImage}
             />
-          </View>
+          
+          <View>
+            <Button style= {styles.enterButton}
+              title="Create a Poll"
+              color="white"
+              accessibilityLabel="Learn more about this purple button"
+              
+            />
+        </View>
+        </View>
           <View>
             <TextInput
               style={styles.inputText}
@@ -49,7 +58,7 @@ export default class HomeScreen extends React.Component {
             />
           </View>
           
-          <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.buttonLook}>
             <Text style={styles.buttonText}> Enter</Text>
@@ -67,7 +76,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#DA3743',
   },
   
- 
   buttonText:{
     fontSize:30,
     fontWeight:'bold',
@@ -82,21 +90,20 @@ const styles = StyleSheet.create({
 
   buttonLook: {
     alignItems: 'center',
-    width:210,
+    width:250,
     height:60,
     backgroundColor: '#27A2C4',
     padding: 10,
-    marginLeft:80,
-    marginTop: -240
+    marginLeft:60,
+    marginTop: -250
   },
   
   inputText: {
     height: 60, 
-    width: 210, 
-    borderColor: 'black', 
-    borderWidth: 1, 
+    width: 250, 
+    borderColor: 'black',  
     backgroundColor:'white', 
-    marginLeft: 80,
+    marginLeft: 60,
     textAlign: 'center',
     fontSize: 25,
     fontWeight:'bold'
@@ -117,19 +124,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 200,
+    height: 160,
     resizeMode: 'contain',
-    marginTop: 200,
-    marginLeft: -10,
+    marginTop: 100,
+    marginLeft: -5,
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
+  
   codeHighlightText: {
     color: 'rgba(96,100,109, 0.8)',
   },
