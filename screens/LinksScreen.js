@@ -49,10 +49,37 @@ export default class LinksScreen extends React.Component {
   };
 
   getSelectedCompanies() {
+    this.forceUpdate();
     console.log(selected_companies.company_name);
     return(selected_companies);
   }
   
+  checkIfPressed(id) {
+    if((selected_companies.company_id).includes(id)) {
+      style = StyleSheet.create({
+        button: {
+          backgroundColor: '#DA3743',
+          marginTop: 5,
+          paddingVertical: 30,
+          paddingHorizontal: 80,
+          alignItems: 'center'
+        }
+      });
+      return (style.button)
+    }
+    else {
+      style = StyleSheet.create({
+        button: {
+          backgroundColor: '#e5e5e5',
+          marginTop: 5,
+          paddingVertical: 30,
+          paddingHorizontal: 80,
+          alignItems: 'center'
+        }
+    });
+    return (style.button)
+    }
+  }
 
 
   render() {
@@ -66,18 +93,11 @@ export default class LinksScreen extends React.Component {
           renderItem={
             ({ item }) => 
               <TouchableHighlight
-              underlayColor={'gray'}
-              onPress={() => this.setSelectedCompanies(item.name, item.id)}
-              style={{
-                backgroundColor: '#e5e5e5',
-                marginTop: 5,
-                paddingVertical: 30,
-                paddingHorizontal: 80,
-                alignItems: 'center'
-              }}
-              >
+                onPress={() => this.setSelectedCompanies(item.name, item.id)}
+                style={this.checkIfPressed(item.id)}
+                >
                 <Text>
-                  {item.name}   Category:{item.categories[0].title}
+                  {item.name}
                 </Text>
               </TouchableHighlight>
             }
@@ -87,7 +107,7 @@ export default class LinksScreen extends React.Component {
           <TouchableOpacity
             style={styles.buttonLook}
             onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
-            <Text style={styles.buttonText}> Enter</Text>
+            <Text style={styles.buttonText}>Start Poll</Text>
           </TouchableOpacity>
         </View>
       </View>
