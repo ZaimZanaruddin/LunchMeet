@@ -83,8 +83,8 @@ export default class SettingsScreen extends React.Component {
     
         <TouchableOpacity
             style={styles.container}
-            onPress={()=>this.props.navigation.navigate('SettingsScreen')}
-            onPress={()=>incrementCount(this.state.votes[0], 0)}>
+            onPress={()=>incrementCount(this.state.votes[0], 0)}
+            onPress={()=>this.props.navigation.navigate('ResultScreen')}>
             <Text style={styles.buttonText}>{this.state.restaurant[0]}</Text>
         </TouchableOpacity>
       
@@ -92,8 +92,8 @@ export default class SettingsScreen extends React.Component {
     
       <TouchableOpacity
             style={styles.container}
-            onPress={()=>this.props.navigation.navigate('SettingsScreen')}
-            onPress={()=>incrementCount(this.state.votes[1], 1)}>
+            onPress={()=>incrementCount(this.state.votes[1], 1)}
+            onPress={()=>this.props.navigation.navigate('ResultScreen')}>
             <Text style={styles.buttonText}>{this.state.restaurant[1]}</Text>
         </TouchableOpacity>
     
@@ -102,8 +102,8 @@ export default class SettingsScreen extends React.Component {
      
       <TouchableOpacity
             style={styles.container}
-            onPress={()=>this.props.navigation.navigate('SettingsScreen')}
-            onPress={()=>incrementCount(this.state.votes[2], 2)}>
+            onPress={()=>incrementCount(this.state.votes[2], 2)}
+            onPress={()=>this.props.navigation.navigate('ResultScreen')}>
             <Text style={styles.buttonText}>{this.state.restaurant[2]}</Text>
         </TouchableOpacity>
       
