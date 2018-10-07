@@ -13,6 +13,7 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import LinksScreen from './LinksScreen';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -39,6 +40,7 @@ export default class HomeScreen extends React.Component {
           
           <View>
             <Button style= {styles.enterButton}
+              onPress ={()=>this.props.navigation.navigate('LinksScreen')}
               title="Create a Poll"
               color="white"
               accessibilityLabel="Learn more about this purple button"
@@ -60,7 +62,8 @@ export default class HomeScreen extends React.Component {
           
         <View style={styles.buttonContainer}>
             <TouchableOpacity
-              style={styles.buttonLook}>
+            style={styles.buttonLook}
+            onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
             <Text style={styles.buttonText}> Enter</Text>
           </TouchableOpacity>
         </View>
