@@ -2,10 +2,11 @@ import React from 'react';
 import { Platform, StyleSheet,Text, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 
-import {StackNavigator} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation'
 import HomeScreen from './screens/HomeScreen'
 import LinksScreen from './screens/LinksScreen'
 import SettingsScreen from './screens/SettingsScreen'
+import ResultScreen from './screens/ResultScreen'
 
 
 export default class App extends React.Component {
@@ -24,10 +25,11 @@ export default class App extends React.Component {
   }
 }
 
-const AppStackNavigator = new StackNavigator({
+const AppStackNavigator = new createStackNavigator({
   HomeScreen:{screen:HomeScreen},
   LinksScreen:{screen:LinksScreen},
-  SettingsScreen:{screen:SettingsScreen}
+  SettingsScreen:{screen:SettingsScreen},
+  ResultScreen:{screen:ResultScreen}
 })
 
 
