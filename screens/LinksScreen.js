@@ -1,12 +1,22 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import Touchable from 'react-native-platform-touchable';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import TouchableHighlight from 'react-native-platform-touchable';
+
+const selected_companies = {
+  company_name: [],
+  company_id: []
+};
 
 export default class LinksScreen extends React.Component {
+  static navigationOptions = {
+    header: null,
+  };
 
   state = {
     data: []
   };
+
+  
 
   componentWillMount() {
     this.fetchData();
@@ -23,32 +33,65 @@ export default class LinksScreen extends React.Component {
     this.setState({ data: json.businesses});
   }
 
+  setSelectedCompanies(company_name, company_id) {
+    if (selected_companies.company_name.length == 3) {
+      selected_companies.company_name.pop();
+      selected_companies.company_id.pop();
+      selected_companies.company_name.unshift(company_name);
+      selected_companies.company_id.unshift(company_id);
+      console.log(selected_companies);
+    }
+    else {
+      selected_companies.company_name.push(company_name);
+      selected_companies.company_id.push(company_id);
+      console.log(selected_companies);
+    }
+  };
+
+  getSelectedCompanies() {
+    console.log(selected_companies.company_name);
+    return(selected_companies);
+  }
+  
+
 
   render() {
     return (
       <View style={styles.container}>
-      
-        <FlatList data={this.state.data}
-        keyExtractor={(x, i) => i.toString()}
-        renderItem={
-          ({ item }) => 
-            <Touchable
-            onPress={() => console.log('hello')}
-            style={{
-              backgroundColor: '#e5e5e5',
-              marginTop: 5,
-              paddingVertical: 30,
-              paddingHorizontal: 80,
-              alignItems: 'center'
-            }}
-            >
-              <Text>
-                {item.name}
-              </Text>
-            </Touchable>
-          }
-        />
+        <View style={{
+                      height: 700,
+                      }}>
+          <FlatList data={this.state.data}
+          keyExtractor={(x, i) => i.toString()}
+          renderItem={
+            ({ item }) => 
+              <TouchableHighlight
+              underlayColor={'gray'}
+              onPress={() => this.setSelectedCompanies(item.name, item.id)}
+              style={{
+                backgroundColor: '#e5e5e5',
+                marginTop: 5,
+                paddingVertical: 30,
+                paddingHorizontal: 80,
+                alignItems: 'center'
+              }}
+              >
+                <Text>
+                  {item.name}   Category:{item.categories[0].title}
+                </Text>
+              </TouchableHighlight>
+            }
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.buttonLook}
+            onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
+            <Text style={styles.buttonText}> Enter</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+      
     );
   }
 }
@@ -59,5 +102,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: '#f5f5f5',
+  },
+
+  buttonText:{
+    fontSize:30,
+    fontWeight:'bold',
+    color:'white',
+  },
+  
+  buttonContainer: {
+    width: 500,
+    flex:1,
+    justifyContent:'center',
+    alignItems: 'center',
+    padding:1,
+    backgroundColor: '#DA3743'
+  },
+
+  buttonLook: {
+    alignItems: 'center',
+    width:200,
+    height:60,
+    backgroundColor: '#404040',
+    padding: 10,
   },
 });
