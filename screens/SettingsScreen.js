@@ -11,8 +11,8 @@ import {
   Container, 
   Button
 } from 'react-native';
-
-
+import firebase from 'firebase';
+import {DB_CONFIG} from '../Config/Config.js'; 
 import { MonoText } from '../components/StyledText';
 import LinksScreen from './LinksScreen';
 
@@ -21,7 +21,41 @@ export default class SettingsScreen extends React.Component {
     header: null,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {restaurant: []};
+    this.restaurant;
+    
+  }
 
+  componentDidMount() {
+    firebase.initializeApp(DB_CONFIG);
+    for( let i = 1; i <= 3; i++)
+    {
+      let temp = String(i);
+      firebase.database().ref('pin/1001/res'+temp+'/name').on('value', snapshot => {
+        console.log(snapshot.val()+ ' is good');
+        this.rest = snapshot.val();
+        var newState = this.state.restaurant.slice();
+        newState.push(this.rest);
+        this.setState({
+          restaurant: newState
+        })
+      });
+    }
+    
+    firebase.database().ref('identifier').set(
+      {
+          pin: '10001',
+          
+      }
+    ).then(() => {
+        console.log('INSERTED !');
+    }).catch((error) => {
+        console.log(error);
+    });
+    
+  }
  
   render() {
     return (
@@ -40,7 +74,7 @@ export default class SettingsScreen extends React.Component {
         <TouchableOpacity
             style={styles.container}
             onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
-            <Text style={styles.buttonText}>Vote</Text>
+            <Text style={styles.buttonText}>{this.state.restaurant[0]}</Text>
         </TouchableOpacity>
       
 
@@ -48,7 +82,7 @@ export default class SettingsScreen extends React.Component {
       <TouchableOpacity
             style={styles.container}
             onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
-            <Text style={styles.buttonText}>Vote</Text>
+            <Text style={styles.buttonText}>{this.state.restaurant[1]}</Text>
         </TouchableOpacity>
     
 
@@ -57,7 +91,7 @@ export default class SettingsScreen extends React.Component {
       <TouchableOpacity
             style={styles.container}
             onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
-            <Text style={styles.buttonText}>Vote</Text>
+            <Text style={styles.buttonText}>{this.state.restaurant[2]}</Text>
         </TouchableOpacity>
       
 
