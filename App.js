@@ -9,6 +9,14 @@ import SettingsScreen from './screens/SettingsScreen'
 
 
 export default class App extends React.Component {
+  componentDidMount() {
+    Font.loadAsync({
+      'Montserrat-Regular': require('./assets/fonts/Montserrat-Regular.ttf'),
+      'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
+    });
+  }
+  
+  
   render() {
   return (
     <AppStackNavigator />
