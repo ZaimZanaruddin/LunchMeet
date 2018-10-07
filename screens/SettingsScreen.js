@@ -23,7 +23,7 @@ export default class SettingsScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {restaurant: []};
+    this.state = {restaurant: [], votes: []};
     this.restaurant;
     
   }
@@ -40,6 +40,16 @@ export default class SettingsScreen extends React.Component {
         newState.push(this.rest);
         this.setState({
           restaurant: newState
+        })
+      });
+      firebase.database().ref('pin/1001/res'+temp+'/votes').on('value', snapshot => {
+        
+        
+        this.vote = parseInt(snapshot.val());
+        var newState = this.state.votes.slice();
+        newState.push(this.vote);
+        this.setState({
+          votes: newState
         })
       });
     }
@@ -73,7 +83,8 @@ export default class SettingsScreen extends React.Component {
     
         <TouchableOpacity
             style={styles.container}
-            onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
+            onPress={()=>this.props.navigation.navigate('SettingsScreen')}
+            onPress={()=>incrementCount(this.state.votes[0], 0)}>
             <Text style={styles.buttonText}>{this.state.restaurant[0]}</Text>
         </TouchableOpacity>
       
@@ -81,7 +92,8 @@ export default class SettingsScreen extends React.Component {
     
       <TouchableOpacity
             style={styles.container}
-            onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
+            onPress={()=>this.props.navigation.navigate('SettingsScreen')}
+            onPress={()=>incrementCount(this.state.votes[1], 1)}>
             <Text style={styles.buttonText}>{this.state.restaurant[1]}</Text>
         </TouchableOpacity>
     
@@ -90,7 +102,8 @@ export default class SettingsScreen extends React.Component {
      
       <TouchableOpacity
             style={styles.container}
-            onPress={()=>this.props.navigation.navigate('SettingsScreen')}>
+            onPress={()=>this.props.navigation.navigate('SettingsScreen')}
+            onPress={()=>incrementCount(this.state.votes[2], 2)}>
             <Text style={styles.buttonText}>{this.state.restaurant[2]}</Text>
         </TouchableOpacity>
       
@@ -114,6 +127,17 @@ export default class SettingsScreen extends React.Component {
     );
   }
 
+}
+
+function incrementCount(count, user) {
+  
+  var num = count+ 1;
+  var rest = user + 1;
+  firebase.database().ref('pin/1001/res'+rest).update({
+    votes: num
+    
+  });
+  console.log("works");
 }
 
 const styles = StyleSheet.create({
